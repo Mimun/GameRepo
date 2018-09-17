@@ -1,0 +1,14 @@
+[0331/120306:ERROR:crashpad_client_win.cc(316)] CreateProcess: The system cannot find the file specified. (0x2)
+[0331/120306:ERROR:crash_report_database_win.cc(549)] CreateDirectory C:\Users\ChiPL\AppData\Local\User Data\Crashpad: The system cannot find the path specified. (0x3)
+[0331/120308:INFO:nw_package.cc(175)] "C:\Program Files\NWjsForC2\win32\nw.exe" --ignore-gpu-blacklist "C:\Users\ChiPL\AppData\Local\Temp\c2-1788BP\html5\package.zip"
+[0331/120308:ERROR:registration_protocol_win.cc(53)] CreateFile: The system cannot find the path specified. (0x3)
+[0331/120309:ERROR:registration_protocol_win.cc(53)] CreateFile: The system cannot find the path specified. (0x3)
+[0331/120339:ERROR:registration_protocol_win.cc(53)] CreateFile: The system cannot find the path specified. (0x3)
+[0331/120339:ERROR:image_metadata_extractor.cc(114)] Couldn't load libexif. 126
+[0331/120409:ERROR:registration_protocol_win.cc(53)] CreateFile: The system cannot find the path specified. (0x3)
+[0331/120409:ERROR:image_metadata_extractor.cc(114)] Couldn't load libexif. 126
+[0331/120423:ERROR:crashpad_client_win.cc(316)] CreateProcess: The system cannot find the file specified. (0x2)
+[0331/120423:ERROR:crash_report_database_win.cc(549)] CreateDirectory C:\Users\ChiPL\AppData\Local\User Data\Crashpad: The system cannot find the path specified. (0x3)
+[0331/120423:INFO:nw_package.cc(175)] "C:\Program Files\NWjsForC2\win32\nw.exe" --ignore-gpu-blacklist "C:\Users\ChiPL\AppData\Local\Temp\c2-1788BP\html5\package.zip"
+[0331/120424:ERROR:registration_protocol_win.cc(53)] CreateFile: The system cannot find the path specified. (0x3)
+[0331/120424:ERROR:registration_protocol_win.cc(53)] CreateFile: The system cannot find the path specified. (0x3)

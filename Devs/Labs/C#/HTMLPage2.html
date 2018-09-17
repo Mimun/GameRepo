@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    $(function() {
+        var webSocket = window.WebSocket || window.MozWebSocket,
+            ws = new webSocket('ws://localhost:8765');
+            // 
+       	// public string playerName;
+        // public string playerJwt;
+        // public string playerRoomName;
+        // public string playerRoomId;
+        // public string avatarUrl;
+        // var user1 = {
+        // 	msgEvent: "JOIN_OR_CREATE_ROOM_CLIENT_to_SERVER",
+        //     playerName: 'chipl_1',
+        //     avatarUrl: "something.png",
+        //     playerJwt: "aabbcccderfd",
+        //     game: "Tala",
+        //     playerRoomId: 1,
+        //     playerRoomName: "Meocon"
+        // };
+
+        var user2 = {
+        	msgEvent: "JOIN_OR_CREATE_ROOM_CLIENT_to_SERVER",
+            playerName: 'chipl_2',
+            avatarUrl: "something.png",
+            playerJwt: "aabbcccderfd",
+            game: "Tala",
+            playerRoomId: 1,
+            playerRoomName: "Meocon"
+        };
+
+        // var user3 = {
+        // 	msgEvent: "JOIN_OR_CREATE_ROOM_CLIENT_to_SERVER",
+        //     playerName: 'chipl_3',
+        //     avatarUrl: "something.png",
+        //     playerJwt: "aabbcccderfd",
+        //     game: "Tala",
+        //     playerRoomId: 1,
+        //     playerRoomName: "Meocon"
+        // };
+
+        // var user4 = {
+        // 	msgEvent: "JOIN_OR_CREATE_ROOM_CLIENT_to_SERVER",
+        //     playerName: 'chipl_4',
+        //     avatarUrl: "something.png",
+        //     playerJwt: "aabbcccderfd",
+        //     game: "Tala",
+        //     playerRoomId: 1,
+        //     playerRoomName: "Meocon"
+        // };
+
+        // var user5 = {
+        // 	msgEvent: "JOIN_OR_CREATE_ROOM_CLIENT_to_SERVER",
+        //     playerName: 'chipl_5',
+        //     avatarUrl: "something.png",
+        //     playerJwt: "aabbcccderfd",
+        //     game: "Tala",
+        //     playerRoomId: 2,
+        //     playerRoomName: "Meocon"
+        // };
+
+        ws.binaryType = "arraybuffer";
+        ws.onopen = function(e) {
+            console.log('Connection opened');
+            console.log("WS ready state:", ws.readyState)
+            // ws.send(JSON.stringify(user1));
+            ws.send(JSON.stringify(user2));
+            // ws.send(JSON.stringify(user3));
+            // ws.send(JSON.stringify(user4));
+            // ws.send(JSON.stringify(user5));
+        }
+
+        ws.onclose = function(e) {
+            console.log('Connection closed');
+        }
+
+        ws.onmessage = function(e) {
+            //var dataObject = JSON.parse(e.data);
+            //console.log(dataObject);
+            //console.log(e);
+            console.log(e.data);
+            // ws.send(" I am here.. available");
+        }
+    });
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

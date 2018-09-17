@@ -1,0 +1,10 @@
+[0331/123859:ERROR:crashpad_client_win.cc(316)] CreateProcess: The system cannot find the file specified. (0x2)
+[0331/123859:ERROR:crash_report_database_win.cc(549)] CreateDirectory C:\Users\ChiPL\AppData\Local\User Data\Crashpad: The system cannot find the path specified. (0x3)
+[0331/123859:INFO:nw_package.cc(175)] "C:\Program Files\NWjsForC2\win32\nw.exe" --ignore-gpu-blacklist "C:\Users\ChiPL\AppData\Local\Temp\c2-32LY5G\html5\package.zip"
+[0331/123900:ERROR:registration_protocol_win.cc(53)] CreateFile: The system cannot find the path specified. (0x3)
+[0331/123900:ERROR:registration_protocol_win.cc(53)] CreateFile: The system cannot find the path specified. (0x3)
+[0404/152848:ERROR:crashpad_client_win.cc(316)] CreateProcess: The system cannot find the file specified. (0x2)
+[0404/152848:ERROR:crash_report_database_win.cc(549)] CreateDirectory C:\Users\ChiPL\AppData\Local\User Data\Crashpad: The system cannot find the path specified. (0x3)
+[0404/152849:INFO:nw_package.cc(175)] "C:\Program Files\NWjsForC2\win32\nw.exe" --ignore-gpu-blacklist "C:\Users\ChiPL\AppData\Local\Temp\c2-3RHKP8\html5\package.zip"
+[0404/152851:ERROR:registration_protocol_win.cc(53)] CreateFile: The system cannot find the path specified. (0x3)
+[0404/152853:ERROR:registration_protocol_win.cc(53)] CreateFile: The system cannot find the path specified. (0x3)
