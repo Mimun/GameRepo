@@ -20794,13 +20794,13 @@ cr.behaviors.Rex_MoveTo = function(runtime)
 	};
 }());
 cr.getObjectRefTable = function () { return [
-	cr.plugins_.Browser,
 	cr.plugins_.GameTaLaPlugin,
+	cr.plugins_.Browser,
 	cr.plugins_.Function,
-	cr.plugins_.Sprite,
-	cr.plugins_.Touch,
-	cr.plugins_.Text,
 	cr.plugins_.TiledBg,
+	cr.plugins_.Sprite,
+	cr.plugins_.Text,
+	cr.plugins_.Touch,
 	cr.behaviors.Rex_MoveTo,
 	cr.behaviors.DragnDrop,
 	cr.behaviors.Flash,
@@ -20872,8 +20872,8 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.GameTaLaPlugin.prototype.cnds.NewCardFromDesk,
 	cr.plugins_.GameTaLaPlugin.prototype.exps.GetNewCardFromDeskInfo,
 	cr.behaviors.Rex_MoveTo.prototype.acts.SetTargetPosOnObject,
-	cr.plugins_.Sprite.prototype.cnds.IsOverlapping,
 	cr.behaviors.Rex_MoveTo.prototype.cnds.OnHitTarget,
+	cr.plugins_.Sprite.prototype.cnds.IsOverlapping,
 	cr.plugins_.GameTaLaPlugin.prototype.acts.EarCardFromOther,
 	cr.plugins_.GameTaLaPlugin.prototype.cnds.EarnCardFromOther,
 	cr.plugins_.GameTaLaPlugin.prototype.exps.GetEarnedCardInfo,
