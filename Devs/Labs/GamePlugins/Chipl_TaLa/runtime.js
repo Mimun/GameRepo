@@ -442,6 +442,28 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 		sendObj = {	msgEvent: msg}					
 		this.ws.send(JSON.stringify(sendObj));
 	};
+	// ShowCardCollectionToOther
+	Acts.prototype.EarCardFromOther = function ()
+	{		
+		if (!this.ws || this.ws.readyState !== 1 /* OPEN */){			
+			return;
+		}			
+		msg = "TAKE_CARD_FROM_OTHER_CLIENT_to_SERVER";
+		sendObj = {	msgEvent: msg}					
+		this.ws.send(JSON.stringify(sendObj));
+	};
+	// ShowCardCollectionToOther
+	Acts.prototype.ShowCardCollectionToOther = function (cardList)
+	{		
+		if (!this.ws || this.ws.readyState !== 1 /* OPEN */){			
+			return;
+		}			
+		msg = "SHOW_CARDCOLLECTIONS_CLIENT_to_SERVER";
+		sendObj = {	msgEvent: msg,
+					cardList: cardList}
+		console.log("Show card list", sendObj);
+		this.ws.send(JSON.stringify(sendObj));
+	};
 	// ... other actions here ...
 	
 	pluginProto.acts = new Acts();

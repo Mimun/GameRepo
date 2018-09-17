@@ -142,7 +142,9 @@ AddAction(6, af_none, "Take new Card from Desk", "Game Events", "Take new Card f
 
 // Earn card from preceded player
 AddAction(7, af_none, "Earn Card from Other", "Game Events", "Earn Card from Other", "Earn Card from Other.", "EarCardFromOther");
-
+// Show my card list to other
+AddStringParam("Data", "A ShowCardList string to send to the server.");
+AddAction(8, af_none, "Show my cards collection to other", "Game Events", "Show my cards collection to other", "Show my cards collection to other.", "ShowCardCollectionToOther");
 
 ////////////////////////////////////////
 // Expressions

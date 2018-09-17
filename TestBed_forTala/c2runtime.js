@@ -16567,6 +16567,26 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 		sendObj = {	msgEvent: msg}
 		this.ws.send(JSON.stringify(sendObj));
 	};
+	Acts.prototype.EarCardFromOther = function ()
+	{
+		if (!this.ws || this.ws.readyState !== 1 /* OPEN */){
+			return;
+		}
+		msg = "TAKE_CARD_FROM_OTHER_CLIENT_to_SERVER";
+		sendObj = {	msgEvent: msg}
+		this.ws.send(JSON.stringify(sendObj));
+	};
+	Acts.prototype.ShowCardCollectionToOther = function (cardList)
+	{
+		if (!this.ws || this.ws.readyState !== 1 /* OPEN */){
+			return;
+		}
+		msg = "SHOW_CARDCOLLECTIONS_CLIENT_to_SERVER";
+		sendObj = {	msgEvent: msg,
+					cardList: cardList}
+		console.log("Show card list", sendObj);
+		this.ws.send(JSON.stringify(sendObj));
+	};
 	pluginProto.acts = new Acts();
 	function Exps() {};
 	Exps.prototype.MyExpression = function (ret)	// 'ret' must always be the first parameter - always return the expression's result through it!
@@ -20794,13 +20814,13 @@ cr.behaviors.Rex_MoveTo = function(runtime)
 	};
 }());
 cr.getObjectRefTable = function () { return [
-	cr.plugins_.GameTaLaPlugin,
 	cr.plugins_.Browser,
+	cr.plugins_.GameTaLaPlugin,
 	cr.plugins_.Function,
-	cr.plugins_.TiledBg,
-	cr.plugins_.Sprite,
 	cr.plugins_.Text,
+	cr.plugins_.Sprite,
 	cr.plugins_.Touch,
+	cr.plugins_.TiledBg,
 	cr.behaviors.Rex_MoveTo,
 	cr.behaviors.DragnDrop,
 	cr.behaviors.Flash,
@@ -20879,6 +20899,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.GameTaLaPlugin.prototype.exps.GetEarnedCardInfo,
 	cr.plugins_.GameTaLaPlugin.prototype.cnds.MovingPlacedCard,
 	cr.plugins_.GameTaLaPlugin.prototype.exps.GetMovingCardInfo,
-	cr.plugins_.Browser.prototype.acts.Alert
+	cr.plugins_.GameTaLaPlugin.prototype.acts.ShowCardCollectionToOther
 ];};
 
