@@ -234,5 +234,22 @@ namespace GameFoundation.GameUtils
 		//	pl.Send(pl, StaticEvent.SHOW_CARDCOLLECTIONS_SERVER_to_CLIENT, null);
 		//}
 
+		internal void ShowCardCollection(Player pl, string cardsCollection)
+		{
+			// 1. Validate String format first and then validate value of each item in string (player have this number or not?)
+
+		List<string> validate = cardsCollection.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+		string validatedStr = String.Join(",", validate.ToArray());
+		
+			Console.WriteLine(validatedStr);
+			Players.ForEach(p =>
+			{
+				p.Send(pl, StaticEvent.SHOW_CARDCOLLECTIONS_SERVER_to_CLIENT, validatedStr);
+			});
+					 
+		}
+
+
 	}
+
 }

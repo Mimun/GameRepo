@@ -376,8 +376,9 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 						GameHandler.movingCardInfo = player;
 						self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.MovingPlacedCard,self);
 					break;
-					case "SHOW_CARDCOLLECTIONS_SERVER_to_CLIENT":
+					case "SHOW_CARDCOLLECTIONS_SERVER_to_CLIENT": 
 						//ShowMyCardCollections
+						GameHandler.ShowCardCollectionsInfo = player;
 						self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.ShowCardCollections,self);
 					break;
 				}
@@ -588,6 +589,15 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 		}
 		if (type == 1){
 			ret.set_int(GameHandler.movingCardInfo.value);
+		}		
+	}
+	// GetShowCollectionCardInfo
+	Exps.prototype.GetShowCollectionCardInfo = (ret, type)=>{
+		if (type == 0){
+			ret.set_int(GameHandler.ShowCardCollectionsInfo.post);
+		}
+		if (type == 1){
+			ret.set_string(GameHandler.ShowCardCollectionsInfo.value);
 		}		
 	}
 

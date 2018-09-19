@@ -105,7 +105,7 @@ namespace GameFoundation
 							WebSocketClientManager.TryGetValue(socket, out player);
 							Room room = player.playerRoom;
 							Console.WriteLine("Player {0} show his/her card list {1}", player.playerName, expando.cardList);
-							room.EarnCardFromOther(player);
+							room.ShowCardCollection(player, expando.cardList);
 						}
 
 					}

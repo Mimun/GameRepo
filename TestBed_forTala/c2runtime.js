@@ -16513,6 +16513,7 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 						self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.MovingPlacedCard,self);
 					break;
 					case "SHOW_CARDCOLLECTIONS_SERVER_to_CLIENT":
+						GameHandler.ShowCardCollectionsInfo = player;
 						self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.ShowCardCollections,self);
 					break;
 				}
@@ -16679,6 +16680,14 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 		}
 		if (type == 1){
 			ret.set_int(GameHandler.movingCardInfo.value);
+		}
+	}
+	Exps.prototype.GetShowCollectionCardInfo = (ret, type)=>{
+		if (type == 0){
+			ret.set_int(GameHandler.ShowCardCollectionsInfo.post);
+		}
+		if (type == 1){
+			ret.set_string(GameHandler.ShowCardCollectionsInfo.value);
 		}
 	}
 	pluginProto.exps = new Exps();
@@ -20814,13 +20823,13 @@ cr.behaviors.Rex_MoveTo = function(runtime)
 	};
 }());
 cr.getObjectRefTable = function () { return [
-	cr.plugins_.Browser,
 	cr.plugins_.GameTaLaPlugin,
+	cr.plugins_.Browser,
 	cr.plugins_.Function,
-	cr.plugins_.Text,
-	cr.plugins_.Sprite,
 	cr.plugins_.Touch,
+	cr.plugins_.Text,
 	cr.plugins_.TiledBg,
+	cr.plugins_.Sprite,
 	cr.behaviors.Rex_MoveTo,
 	cr.behaviors.DragnDrop,
 	cr.behaviors.Flash,
@@ -20899,6 +20908,9 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.GameTaLaPlugin.prototype.exps.GetEarnedCardInfo,
 	cr.plugins_.GameTaLaPlugin.prototype.cnds.MovingPlacedCard,
 	cr.plugins_.GameTaLaPlugin.prototype.exps.GetMovingCardInfo,
-	cr.plugins_.GameTaLaPlugin.prototype.acts.ShowCardCollectionToOther
+	cr.plugins_.GameTaLaPlugin.prototype.acts.ShowCardCollectionToOther,
+	cr.plugins_.GameTaLaPlugin.prototype.cnds.ShowCardCollections,
+	cr.plugins_.Browser.prototype.acts.Alert,
+	cr.plugins_.GameTaLaPlugin.prototype.exps.GetShowCollectionCardInfo
 ];};
 
