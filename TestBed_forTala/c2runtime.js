@@ -20910,7 +20910,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.GameTaLaPlugin.prototype.exps.GetMovingCardInfo,
 	cr.plugins_.GameTaLaPlugin.prototype.acts.ShowCardCollectionToOther,
 	cr.plugins_.GameTaLaPlugin.prototype.cnds.ShowCardCollections,
-	cr.plugins_.Browser.prototype.acts.Alert,
-	cr.plugins_.GameTaLaPlugin.prototype.exps.GetShowCollectionCardInfo
+	cr.plugins_.GameTaLaPlugin.prototype.exps.GetShowCollectionCardInfo,
+	cr.plugins_.Browser.prototype.acts.Alert
 ];};
 
