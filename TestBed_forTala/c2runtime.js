@@ -20826,10 +20826,10 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.GameTaLaPlugin,
 	cr.plugins_.Browser,
 	cr.plugins_.Function,
-	cr.plugins_.Touch,
-	cr.plugins_.Text,
 	cr.plugins_.TiledBg,
 	cr.plugins_.Sprite,
+	cr.plugins_.Text,
+	cr.plugins_.Touch,
 	cr.behaviors.Rex_MoveTo,
 	cr.behaviors.DragnDrop,
 	cr.behaviors.Flash,
@@ -20856,6 +20856,8 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.GameTaLaPlugin.prototype.cnds.PlayerLeft,
 	cr.plugins_.GameTaLaPlugin.prototype.exps.GetLeftPlayerPos,
 	cr.plugins_.GameTaLaPlugin.prototype.cnds.DisplayStartButton,
+	cr.plugins_.Sprite.prototype.acts.Destroy,
+	cr.plugins_.Sprite.prototype.acts.SetInstanceVar,
 	cr.plugins_.Touch.prototype.cnds.OnTouchObject,
 	cr.plugins_.Sprite.prototype.cnds.IsVisible,
 	cr.plugins_.GameTaLaPlugin.prototype.acts.SendStartGame,
@@ -20863,8 +20865,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.GameTaLaPlugin.prototype.exps.GetCards,
 	cr.system_object.prototype.exps["int"],
 	cr.system_object.prototype.exps.tokencount,
-	cr.plugins_.Sprite.prototype.acts.Destroy,
-	cr.plugins_.Sprite.prototype.acts.SetInstanceVar,
 	cr.plugins_.Sprite.prototype.acts.Spawn,
 	cr.system_object.prototype.exps.tokenat,
 	cr.plugins_.Sprite.prototype.acts.SetAnimFrame,
@@ -20911,6 +20911,9 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.GameTaLaPlugin.prototype.acts.ShowCardCollectionToOther,
 	cr.plugins_.GameTaLaPlugin.prototype.cnds.ShowCardCollections,
 	cr.plugins_.GameTaLaPlugin.prototype.exps.GetShowCollectionCardInfo,
-	cr.plugins_.Browser.prototype.acts.Alert
+	cr.plugins_.Sprite.prototype.acts.SetWidth,
+	cr.plugins_.Sprite.prototype.exps.Width,
+	cr.plugins_.Sprite.prototype.acts.SetHeight,
+	cr.plugins_.Sprite.prototype.exps.Height
 ];};
 

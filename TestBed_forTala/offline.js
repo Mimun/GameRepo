@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1537460420,
+	"version": 1537627481,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -21,8 +21,6 @@
 		"images/backcard-sheet0.png",
 		"images/place_bnt-sheet0.png",
 		"images/placedspace-sheet0.png",
-		"images/placedcard-sheet0.png",
-		"images/placedcard-sheet1.png",
 		"images/takenewcard-sheet0.png",
 		"images/earncard-sheet0.png",
 		"images/earnedspace-sheet0.png",

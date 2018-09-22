@@ -246,7 +246,7 @@ namespace GameFoundation.GameUtils
 			{
 				p.Send(pl, StaticEvent.SHOW_CARDCOLLECTIONS_SERVER_to_CLIENT, validatedStr);
 			});
-					 
+			pl.Status = Player.Stage.Placing;		 
 		}
 
 
