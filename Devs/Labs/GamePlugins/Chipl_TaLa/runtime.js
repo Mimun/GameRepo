@@ -342,13 +342,14 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 							GameHandler.leftPlayer = player;
 							self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.PlayerLeft,self);
 						break;
-					case "TAKE_START_BUTTON_SERVER_to_CLIENT":					
+					case "TAKE_START_BUTTON_SERVER_to_CLIENT":
 							self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.DisplayStartButton,self);
 						break;
 					case "START_NEW_GAME_SERVER_to_CLIENT":
 							GameHandler.userInfo.Cards = player.value;
-							console.log("START_NEW_GAME_SERVER_to_CLIENT");
-							console.log(player.value);
+							// console.log("START_NEW_GAME_SERVER_to_CLIENT");
+							// console.log(player.value);
+							GameHandler.ShowCardPlayerStatus = [];
 							self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.DealCard,self);
 						break;
 					case "CHANGE_MINE_STATGE_SERVER_to_CLIENT":
@@ -379,6 +380,8 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 					case "SHOW_CARDCOLLECTIONS_SERVER_to_CLIENT": 
 						//ShowMyCardCollections
 						GameHandler.ShowCardCollectionsInfo = player;
+						GameHandler.ShowCardPlayerStatus[player.post] = true;
+						
 						self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.ShowCardCollections,self);
 					break;
 				}
@@ -601,6 +604,15 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 		}		
 	}
 
+	//GetShowCardPlayerStatus
+	Exps.prototype.GetShowCardPlayerStatus = (ret,post)=>{
+		if (GameHandler.ShowCardPlayerStatus[post]){
+			ret.set_int(1);
+		}else{
+			ret.set_int(0);
+		}
+				
+	}
 	// ... other expressions here ...
 
 	

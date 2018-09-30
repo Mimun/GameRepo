@@ -35,7 +35,8 @@ namespace GameFoundation.GameUtils
 		public static string SHOW_CARDCOLLECTIONS_SERVER_to_CLIENT = "SHOW_CARDCOLLECTIONS_SERVER_to_CLIENT";
 		public static string SHOW_CARDCOLLECTIONS_CLIENT_to_SERVER = "SHOW_CARDCOLLECTIONS_CLIENT_to_SERVER";
 
-
+		public static string JOIN_CARD_TO_ANOTHER_SERVER_to_CLIENT = "JOIN_CARD_TO_ANOTHER_SERVER_to_CLIENT";
+		public static string JOIN_CARD_TO_ANOTHER_CLIENT_to_SERVER = "JOIN_CARD_TO_ANOTHER_CLIENT_to_SERVER";
 
 		public static List<Room> roomList = new List<Room>();
 

@@ -22,6 +22,8 @@ namespace GameFoundation.GameUtils
 		public int pos_in_room = -1;
 		public bool isWinner = false;
 		public int lastScore = 0;
+		public bool hasShownCardsCollection = false;
+		
 
 		private bool isFirstShowCardPlayer = false;
 
@@ -34,6 +36,7 @@ namespace GameFoundation.GameUtils
 		public List<int> LostCards = new List<int>();		// Cards were lost to feeding next player :D
 		public List<int> EarnedCards = new List<int>(); // Cards were earned from precededPlayer :D
 		public List<int> PlacedCardsList = new List<int>(); // Cards were placed  :D
+		public List<int> ShownCardsList = new List<int>();
 		public int PlacedCard = -1;
 		public enum Stage
 		{

@@ -104,10 +104,18 @@ namespace GameFoundation
 							Player player;
 							WebSocketClientManager.TryGetValue(socket, out player);
 							Room room = player.playerRoom;
-							Console.WriteLine("Player {0} show his/her card list {1}", player.playerName, expando.cardList);
-							room.ShowCardCollection(player, expando.cardList);
+							//Console.WriteLine("Player {0} show his/her card list {1}", player.playerName, expando.cardList);
+							room.ShowCardCollection(player, expando.cardList, expando.isFirstTime);
 						}
-
+						//
+						if (expando.msgEvent == StaticEvent.JOIN_CARD_TO_ANOTHER_CLIENT_to_SERVER)
+						{
+							Player player;
+							WebSocketClientManager.TryGetValue(socket, out player);
+							Room room = player.playerRoom;
+							Console.WriteLine("Player {0} join his/her card list {1} to post {2}", player.playerName, expando.cardList, expando.post);
+							room.JoinCardCollection(player, expando.cardList, (int)expando.post);
+						}
 					}
 					catch (Exception ext)
 					{

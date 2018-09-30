@@ -208,6 +208,11 @@ AddExpression(13, ef_return_number, "Get Moving Card Info ", "Game Expression", 
 AddNumberParam('Type of Info: 0 for position, 1 for value', "get ShowCardCollections Info")
 AddExpression(14, ef_return_any, "Get Show Show CardCollections Info ", "Game Expression", "GetShowCollectionCardInfo", "Return Cards Collection Info");
 
+//GetShowCardPlayerStatus
+AddNumberParam('Type of Info: 0 for position', "get ShowCardPlayerStatus Info")
+AddExpression(15, ef_return_number, "Get ShowCardPlayerStatus Info ", "Game Expression", "GetShowCardPlayerStatus", "Return Player Show Card Status Info");
+
+
 ACESDone();
 
 ////////////////////////////////////////

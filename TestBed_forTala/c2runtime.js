@@ -16429,6 +16429,9 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 	Cnds.prototype.ShowCardCollections = function (){
 		return true;
 	}
+	Cnds.prototype.JoinCardsToOtherCollection = function (){
+		return true;
+	}
 	pluginProto.cnds = new Cnds();
 	function Acts() {};
 	Acts.prototype.MyAction = function (myparam)
@@ -16484,8 +16487,7 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 						break;
 					case "START_NEW_GAME_SERVER_to_CLIENT":
 							GameHandler.userInfo.Cards = player.value;
-							console.log("START_NEW_GAME_SERVER_to_CLIENT");
-							console.log(player.value);
+							GameHandler.ShowCardPlayerStatus = [];
 							self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.DealCard,self);
 						break;
 					case "CHANGE_MINE_STATGE_SERVER_to_CLIENT":
@@ -16514,8 +16516,14 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 					break;
 					case "SHOW_CARDCOLLECTIONS_SERVER_to_CLIENT":
 						GameHandler.ShowCardCollectionsInfo = player;
+						GameHandler.ShowCardPlayerStatus[player.post] = true;
 						self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.ShowCardCollections,self);
 					break;
+					case "JOIN_CARD_TO_ANOTHER_SERVER_to_CLIENT":
+					GameHandler.JoinCardCollectionsInfo = player;
+					console.log("From : JOIN_CARD_TO_ANOTHER_SERVER_to_CLIENT", JSON.parse(player.value));
+					self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.JoinCardsToOtherCollection,self);
+				break;
 				}
         }
 	}
@@ -16584,8 +16592,23 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 		}
 		msg = "SHOW_CARDCOLLECTIONS_CLIENT_to_SERVER";
 		sendObj = {	msgEvent: msg,
-					cardList: cardList}
+					cardList: cardList,
+					isFirstTime: !GameHandler.ShowCardPlayerStatus[0]
+					}
 		console.log("Show card list", sendObj);
+		this.ws.send(JSON.stringify(sendObj));
+	};
+	Acts.prototype.JoinCardToOtherCollection = function (cardList, post)
+	{
+		if (!this.ws || this.ws.readyState !== 1 /* OPEN */){
+			return;
+		}
+		msg = "JOIN_CARD_TO_ANOTHER_CLIENT_to_SERVER";
+		sendObj = {	msgEvent: msg,
+					cardList: cardList,
+					post: post
+					}
+		console.log("Join card list", sendObj);
 		this.ws.send(JSON.stringify(sendObj));
 	};
 	pluginProto.acts = new Acts();
@@ -16688,6 +16711,13 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 		}
 		if (type == 1){
 			ret.set_string(GameHandler.ShowCardCollectionsInfo.value);
+		}
+	}
+	Exps.prototype.GetShowCardPlayerStatus = (ret,post)=>{
+		if (GameHandler.ShowCardPlayerStatus[post]){
+			ret.set_int(1);
+		}else{
+			ret.set_int(0);
 		}
 	}
 	pluginProto.exps = new Exps();
@@ -20826,10 +20856,10 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.GameTaLaPlugin,
 	cr.plugins_.Browser,
 	cr.plugins_.Function,
-	cr.plugins_.Text,
-	cr.plugins_.Touch,
 	cr.plugins_.Sprite,
 	cr.plugins_.TiledBg,
+	cr.plugins_.Text,
+	cr.plugins_.Touch,
 	cr.behaviors.Rex_MoveTo,
 	cr.behaviors.DragnDrop,
 	cr.behaviors.Flash,
@@ -20891,6 +20921,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.GameTaLaPlugin.prototype.exps.GetUserStatus,
 	cr.plugins_.GameTaLaPlugin.prototype.acts.MyAction,
 	cr.plugins_.TiledBg.prototype.acts.SetEffectParam,
+	cr.plugins_.GameTaLaPlugin.prototype.exps.GetShowCardPlayerStatus,
 	cr.plugins_.GameTaLaPlugin.prototype.cnds.PlayerStatusChange,
 	cr.plugins_.GameTaLaPlugin.prototype.exps.GetPlayersStatus,
 	cr.behaviors.Flash.prototype.acts.Flash,
@@ -20914,6 +20945,10 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetWidth,
 	cr.plugins_.Sprite.prototype.exps.Width,
 	cr.plugins_.Sprite.prototype.acts.SetHeight,
-	cr.plugins_.Sprite.prototype.exps.Height
+	cr.plugins_.Sprite.prototype.exps.Height,
+	cr.behaviors.Rex_MoveTo.prototype.acts.SetTargetPosByDistanceAngle,
+	cr.plugins_.GameTaLaPlugin.prototype.acts.JoinCardToOtherCollection,
+	cr.plugins_.GameTaLaPlugin.prototype.cnds.JoinCardsToOtherCollection,
+	cr.plugins_.Browser.prototype.acts.Alert
 ];};
 

@@ -3,6 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 
 namespace GameFoundation.GameUtils
 {
@@ -13,10 +15,11 @@ namespace GameFoundation.GameUtils
 		public List<Player> Players { get; set; } = new List<Player>();
 
 		public List<int> RemainCards;
-		
 
-		enum Stage {
-			Ready,Playing, Finallizing
+
+		enum Stage
+		{
+			Ready, Playing, Finallizing
 		}
 
 		private Stage status;
@@ -31,21 +34,25 @@ namespace GameFoundation.GameUtils
 
 		public void addPlayer(Player pl)
 		{
-			if (this.status != Stage.Ready) {
+			if (this.status != Stage.Ready)
+			{
 				return;
 			}
 			Players.Add(pl);
 			//(position in game to calculate respective postion in display of each player)
 			// check and prepair again
 			#region Assign position for player 
-			int post = 0;			
-			Players.ForEach(p => {
-				if (p.pos_in_room == -1 || p.pos_in_room != post) {					
-					p.pos_in_room = post;					
-				}				
+			int post = 0;
+			Players.ForEach(p =>
+			{
+				if (p.pos_in_room == -1 || p.pos_in_room != post)
+				{
+					p.pos_in_room = post;
+				}
 				post++;
 			});
-			Players.ForEach(p => {
+			Players.ForEach(p =>
+			{
 				this.Broadcast(p, StaticEvent.JOIN_OR_CREATE_ROOM_SERVER_to_CLIENT);
 				p.Status = Player.Stage.Idle;
 			});
@@ -70,7 +77,8 @@ namespace GameFoundation.GameUtils
 
 		public void removePlayer(Player pl)
 		{
-			if (this.status == Stage.Playing) {
+			if (this.status == Stage.Playing)
+			{
 				// End game, left player pay a penanty to other in Game
 				// the declare a winner in State.Finallizing
 				return;
@@ -84,24 +92,29 @@ namespace GameFoundation.GameUtils
 			});
 			// Send Start Button to the lastWinner or the player has min Score or the player minPostion in Game
 			Player lastWinner = StaticEvent.FindLastWinner(this.Players);
-			if (lastWinner != null && this.Players.Count > 1) {
+			if (lastWinner != null && this.Players.Count > 1)
+			{
 				lastWinner.Send(lastWinner, StaticEvent.TAKE_START_BUTTON_SERVER_to_CLIENT);
 			}
-			
+
 		}
 		// Send start game signal to all of players
-		public void StartGame(Player pl) {
+		public void StartGame(Player pl)
+		{
 			List<int> shuffleCards = StaticEvent.CardShuffle();
 
 			// clear all cards  and other remain in each player
-			Players.ForEach(p => {
+			Players.ForEach(p =>
+			{
 				p.Cards.Clear();
 				p.LostCards.Clear();
 				p.EarnedCards.Clear();
 				p.PlacedCardsList.Clear();
 				p.IsFirstShowCardPlayer = false;
+				p.ShownCardsList.Clear();
+				p.hasShownCardsCollection = false;
 			});
-			
+
 			//1. Distribute cards to each player in room. Only one have winner flag
 			Player winner = Players.FirstOrDefault(p => p.isWinner == true);
 			winner.Cards.Add(shuffleCards[0]);
@@ -109,11 +122,12 @@ namespace GameFoundation.GameUtils
 			winner.Status = Player.Stage.Placing;
 			winner.IsFirstShowCardPlayer = true;
 
-			
+
 			// Distribute card to each other
-			for (var i = 0; i< 9; i++)
+			for (var i = 0; i < 9; i++)
 			{
-				Players.ForEach(p => {
+				Players.ForEach(p =>
+				{
 					p.Cards.Add(shuffleCards[0]);
 					shuffleCards.Remove(shuffleCards[0]);
 				});
@@ -123,11 +137,11 @@ namespace GameFoundation.GameUtils
 			#region check
 			// using for check during development
 			string json = JsonConvert.SerializeObject(RemainCards);
-			Console.WriteLine("Remain Cards {0} and total count {1}",json, shuffleCards.Count);
+			Console.WriteLine("Remain Cards {0} and total count {1}", json, shuffleCards.Count);
 			json = string.Join(",", winner.Cards.ToArray());
 			Console.WriteLine("Card on Winner: {0}", json);
 			#endregion
-			pl.Status =Player.Stage.Placing;
+			pl.Status = Player.Stage.Placing;
 			Players.ForEach(p =>
 			{
 				p.Send(p, StaticEvent.START_NEW_GAME_SERVER_to_CLIENT, json = string.Join(",", p.Cards.ToArray()));
@@ -139,8 +153,8 @@ namespace GameFoundation.GameUtils
 			Player precededPlayer = pl.PrecededPlayer;
 			int placedCard = precededPlayer.PlacedCard;
 			//	1. Validate to verify whether this card could be take. ?
-			
-			
+
+
 			//  2. Set this card to player's earn cards list
 			pl.EarnedCards.Add(placedCard);
 			//	3. Set this card to preceded's lost card
@@ -158,30 +172,37 @@ namespace GameFoundation.GameUtils
 			{
 				pl.Status = Player.Stage.Placing;
 			}
-			
+
 			//	5. Inform to all players
-			Players.ForEach(p => p.Send(pl,StaticEvent.TAKE_CARD_FROM_OTHER_SERVER_to_CLIENT,placedCard.ToString()));
+			Players.ForEach(p => p.Send(pl, StaticEvent.TAKE_CARD_FROM_OTHER_SERVER_to_CLIENT, placedCard.ToString()));
 			//	6. Calculate the firsPersonShowCard and then remove placed card from older to newer
 			StaticEvent.SwapFirstShowCard(pl, Players);
 		}
 
+
+
 		internal void TakeNewCard(Player pl)
 		{
 			// Take a new Card from Desk
-			if (pl.Status != Player.Stage.Considering || RemainCards.Count <= 0)  {
+			if (pl.Status != Player.Stage.Considering || RemainCards.Count <= 0)
+			{
 				return;
 			}
-			
+
 			int newCard = RemainCards[0];
 			pl.Cards.Add(newCard);
 			RemainCards.Remove(newCard);
 			Console.WriteLine("Number of Remain Cards: {0}", RemainCards.Count);
-			
 
-			Players.ForEach(p =>{
-				if(p !=pl) {
+
+			Players.ForEach(p =>
+			{
+				if (p != pl)
+				{
 					p.Send(pl, StaticEvent.TAKE_CARD_FROM_DESK_SERVER_to_CLIENT, (-1).ToString());
-				} else {
+				}
+				else
+				{
 					p.Send(pl, StaticEvent.TAKE_CARD_FROM_DESK_SERVER_to_CLIENT, newCard.ToString());
 				}
 			});
@@ -194,7 +215,7 @@ namespace GameFoundation.GameUtils
 			{
 				pl.Status = Player.Stage.Placing;
 			}
-			
+
 		}
 
 		public void PlacingCard(Player pl, int cardVal)
@@ -217,7 +238,8 @@ namespace GameFoundation.GameUtils
 			pl.PlacedCard = cardVal;
 			pl.PlacedCardsList.Add(cardVal);
 			// 2. Broadcasd the card was placed to all players
-			Players.ForEach(p => {
+			Players.ForEach(p =>
+			{
 				p.Send(pl, StaticEvent.PLACING_CARD_SERVER_to_CLIENT, cardVal.ToString());
 			});
 
@@ -234,22 +256,85 @@ namespace GameFoundation.GameUtils
 		//	pl.Send(pl, StaticEvent.SHOW_CARDCOLLECTIONS_SERVER_to_CLIENT, null);
 		//}
 
-		internal void ShowCardCollection(Player pl, string cardsCollection)
+		internal void ShowCardCollection(Player pl, string cardsCollection, bool isFirstTime)
 		{
+			
+			List<string> validate = cardsCollection.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+			List<int> _ShowingCardsList = validate.Select(int.Parse).ToList();
+
+			pl.ShownCardsList = pl.ShownCardsList.Concat(_ShowingCardsList).ToList();			
+
+			string validatedStr = String.Join(",", validate.ToArray());
+
+			Console.WriteLine(validatedStr);
 			// 1. Validate String format first and then validate value of each item in string (player have this number or not?)
 
-		List<string> validate = cardsCollection.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-		string validatedStr = String.Join(",", validate.ToArray());
-		
-			Console.WriteLine(validatedStr);
+			// 2. Remove CardCollection from Card in hand
+
+			// 3. Send information to others in room
+			// isFirstShow = "Hạ đầu"
+			bool isFirstShow = true;
+
 			Players.ForEach(p =>
 			{
 				p.Send(pl, StaticEvent.SHOW_CARDCOLLECTIONS_SERVER_to_CLIENT, validatedStr);
+				if (p.hasShownCardsCollection) {
+					isFirstShow = false;
+				}
 			});
-			pl.Status = Player.Stage.Placing;		 
+
+			// pl.ShownCardsList.Count = 0 => the pl in "Móm" status
+			if (pl.ShownCardsList.Count>0) {
+				pl.hasShownCardsCollection = true;
+			}
+			
+			// Wait..
+			//string s = String.Format("Count of {0} is : {1} ", fac, res);
+			//Console.WriteLine(s);
+
+			Console.WriteLine("IS FIRST TIME {0}", isFirstTime);
+			
+			
+
+			if (!isFirstTime || isFirstShow)
+			{
+				pl.Status = Player.Stage.Placing;
+			}
+			else
+			{
+				// Repeate to show JoinCard Button
+				pl.Status = Player.Stage.ShowCards;
+			}
+
 		}
 
+		internal void JoinCardCollection(Player pl, string cardVal, int post)
+		{
 
+			// 1. Validate String format first and then validate value of each item in string (player have this number or not?)
+
+			// 2. Remove CardCollection from Card in hand
+
+			// 3. Send information to others in room
+			int maxPlayer_InGame = 4;
+
+			dynamic sendObj = new JObject();
+			sendObj.cardVal = String.Join(",", cardVal.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList());
+
+			int desPlayer = Math.Abs(maxPlayer_InGame -  post - pl.pos_in_room);
+			
+			Player pDesPlayer = Players.Single(p => p.pos_in_room == desPlayer);
+
+			Players.ForEach(p =>
+			{
+				// Translate postion
+				sendObj.desPost = Utils.Calculate_DislayPost(p, pDesPlayer);
+				sendObj.srcPost = Utils.Calculate_DislayPost(p, pl);
+				Console.WriteLine("SEND OBJECT: {0}", sendObj.ToString(Formatting.None));
+				p.Send(pl, StaticEvent.JOIN_CARD_TO_ANOTHER_SERVER_to_CLIENT, sendObj.ToString(Formatting.None));
+			});
+		}
 	}
 
 }
