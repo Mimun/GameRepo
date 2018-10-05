@@ -16720,6 +16720,17 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 			ret.set_int(0);
 		}
 	}
+	Exps.prototype.GetJoinCardCollectionsInfo = (ret,type)=>{
+		if (type == 0){
+			ret.set_int(JSON.parse(GameHandler.JoinCardCollectionsInfo.value).srcPost);
+		}
+		if (type == 1){
+			ret.set_int(JSON.parse(GameHandler.JoinCardCollectionsInfo.value).desPost);
+		}
+		if (type == 2){
+			ret.set_string(JSON.parse(GameHandler.JoinCardCollectionsInfo.value).cardVal);
+		}
+	}
 	pluginProto.exps = new Exps();
 }());
 ;
@@ -20853,12 +20864,12 @@ cr.behaviors.Rex_MoveTo = function(runtime)
 	};
 }());
 cr.getObjectRefTable = function () { return [
-	cr.plugins_.GameTaLaPlugin,
 	cr.plugins_.Browser,
+	cr.plugins_.GameTaLaPlugin,
 	cr.plugins_.Function,
+	cr.plugins_.Text,
 	cr.plugins_.Sprite,
 	cr.plugins_.TiledBg,
-	cr.plugins_.Text,
 	cr.plugins_.Touch,
 	cr.behaviors.Rex_MoveTo,
 	cr.behaviors.DragnDrop,
@@ -20949,6 +20960,6 @@ cr.getObjectRefTable = function () { return [
 	cr.behaviors.Rex_MoveTo.prototype.acts.SetTargetPosByDistanceAngle,
 	cr.plugins_.GameTaLaPlugin.prototype.acts.JoinCardToOtherCollection,
 	cr.plugins_.GameTaLaPlugin.prototype.cnds.JoinCardsToOtherCollection,
-	cr.plugins_.Browser.prototype.acts.Alert
+	cr.plugins_.GameTaLaPlugin.prototype.exps.GetJoinCardCollectionsInfo
 ];};
 

@@ -321,9 +321,12 @@ namespace GameFoundation.GameUtils
 
 			dynamic sendObj = new JObject();
 			sendObj.cardVal = String.Join(",", cardVal.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList());
-
-			int desPlayer = Math.Abs(maxPlayer_InGame -  post - pl.pos_in_room);
 			
+			int desPlayer = post + pl.pos_in_room;
+			if (desPlayer > 3) {
+			desPlayer = desPlayer -  maxPlayer_InGame;
+			}
+
 			Player pDesPlayer = Players.Single(p => p.pos_in_room == desPlayer);
 
 			Players.ForEach(p =>
