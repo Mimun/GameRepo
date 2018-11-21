@@ -16590,7 +16590,7 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 					GameHandler.JoinCardCollectionsInfo = player;
 					self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.JoinCardsToOtherCollection,self);
 					break;
-					case "GO_OUT_SERVER_to_CLIENT":
+					case "INFORM_GO_OUT_SERVER_to_CLIENT":
 						GameHandler.informDeclareRummy = JSON.parse(player.value).message;
 						self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.DeclareRummy,self);
 					break;
@@ -16598,6 +16598,13 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 							console.log("Winner--------------------:", JSON.parse(player.value).result);
 							GameHandler.lastResult = JSON.parse(player.value).result;
 							self.runtime.trigger(cr.plugins_.GameTaLaPlugin.prototype.cnds.FinalRound,self);
+							break;
+					case "SHOW_MESSAGE":
+							break;
+					case "HIDE_SCORING_BOARD_SERVER_to_CLIENT":
+							if (c2_callFunction){
+								c2_callFunction("HiringScoreBoard", []);
+							}
 							break;
 					default :
 							console.log(player, "-----------Default---------------");
@@ -16686,6 +16693,15 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 					post: post
 					}
 		console.log("Join card list", sendObj);
+		this.ws.send(JSON.stringify(sendObj));
+	};
+	Acts.prototype.AcceptScoringBoard = function ()
+	{
+		if (!this.ws || this.ws.readyState !== 1 /* OPEN */){
+			return;
+		}
+		msg = "ACCEPT_SCORING_BOARD_CLIENT_to_SERVER";
+		sendObj = {	msgEvent: msg}
 		this.ws.send(JSON.stringify(sendObj));
 	};
 	pluginProto.acts = new Acts();
@@ -16814,21 +16830,8 @@ cr.plugins_.GameTaLaPlugin = function(runtime)
 	Exps.prototype.GetLastResult = (ret,pos,type)=>{
 		let obj = GameHandler.lastResult[pos];
 		if (c2_callFunction && obj){
-			c2_callFunction("ShowFinal", [pos,obj.name, obj.cardList]);
-		}
-		switch (type){
-			case 0:
-				ret.set_string(obj.name)
-				break;
-			case 1:
-				ret.set_string(obj.point);
-				break;
-			case 2:
-				ret.set_string(obj.cardList);
-				break;
-			case 3:
-				ret.set_string("Not yet")
-				break;
+			c2_callFunction("ShowFinal", [pos,obj.name, obj.cardList, obj.avatarUrl, obj.message]);
+			console.log ("Avatar: ", obj.avatarUrl);
 		}
 	}
 	pluginProto.exps = new Exps();
@@ -21330,13 +21333,13 @@ cr.behaviors.Rex_MoveTo = function(runtime)
 	};
 }());
 cr.getObjectRefTable = function () { return [
-	cr.plugins_.Browser,
 	cr.plugins_.GameTaLaPlugin,
+	cr.plugins_.Browser,
 	cr.plugins_.Function,
-	cr.plugins_.Sprite,
-	cr.plugins_.Touch,
-	cr.plugins_.TiledBg,
 	cr.plugins_.Text,
+	cr.plugins_.Touch,
+	cr.plugins_.Sprite,
+	cr.plugins_.TiledBg,
 	cr.behaviors.Rex_MoveTo,
 	cr.behaviors.DragnDrop,
 	cr.behaviors.Fade,
@@ -21434,7 +21437,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Text.prototype.exps.X,
 	cr.plugins_.Text.prototype.exps.Y,
 	cr.behaviors.Pin.prototype.acts.Pin,
-	cr.plugins_.Sprite.prototype.cnds.CompareFrame,
+	cr.plugins_.GameTaLaPlugin.prototype.acts.AcceptScoringBoard,
 	cr.behaviors.Rex_MoveTo.prototype.cnds.IsMoving,
 	cr.plugins_.Text.prototype.acts.MoveToTop,
 	cr.plugins_.GameTaLaPlugin.prototype.cnds.FinalRound,
