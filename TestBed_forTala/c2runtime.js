@@ -21333,13 +21333,13 @@ cr.behaviors.Rex_MoveTo = function(runtime)
 	};
 }());
 cr.getObjectRefTable = function () { return [
-	cr.plugins_.GameTaLaPlugin,
 	cr.plugins_.Browser,
+	cr.plugins_.GameTaLaPlugin,
 	cr.plugins_.Function,
 	cr.plugins_.Text,
-	cr.plugins_.Touch,
-	cr.plugins_.Sprite,
 	cr.plugins_.TiledBg,
+	cr.plugins_.Sprite,
+	cr.plugins_.Touch,
 	cr.behaviors.Rex_MoveTo,
 	cr.behaviors.DragnDrop,
 	cr.behaviors.Fade,
