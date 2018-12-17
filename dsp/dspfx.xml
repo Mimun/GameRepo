@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<c2effect>
+	<!-- About -->
+	<id>dspfx</id>			<!-- A unique ID.  Change this!  Never change the ID after release - change the name instead. -->
+	<name>Drop Shadow Plus FX</name>		<!-- The displayed name of the effect -->
+	<category>Animated FX</category>	<!-- Any category can be used, but try to use one of: Color, Blend, or Distortion -->
+	<description>Drop Shadow Plus</description>
+	<author>Gigatron</author>
+	
+	<!-- Settings -->
+	
+	<!-- Extend the bounding box for effect processing by a number of pixels to show the edges
+		 of effects which go beyond the object edges, e.g. blur and warp.
+		 Do not set if not strictly necessay!  These options have a performance impact. -->
+	<extend-box-horizontal>0</extend-box-horizontal>
+	<extend-box-vertical>0</extend-box-vertical>
+	
+	<!-- Set to true if the background is sampled (see comments on background sampling in the .fx file) -->
+	<blends-background>false</blends-background>
+	
+	<!-- Set to true if the background is not sampled at 1:1 with the foreground (e.g. the
+		 background texture co-ordinates are modified in some way by the shader, as done
+		 by Glass and Lens) -->
+	<cross-sampling>false</cross-sampling>
+	<preserves-opaqueness>false</preserves-opaqueness>
+	<!-- Set to true if the effect changes by itself over time, e.g. Noise or Warp effects. -->
+	<animated>true</animated>
+	
+	<!-- Parameters -->
+	<parameters>
+		
+	<param>
+			<name>Speed</name>
+			<description>Unused !!</description>
+			<type>percent</type>
+			<initial>0.01</initial>
+			<uniform>speed</uniform>
+	</param>
+	<param>
+			<name>X Offset</name>
+			<description>X Displacement</description>
+			<type>float</type>
+			<initial>0.05</initial>
+			<uniform>p1</uniform>
+	</param>
+	<param>
+			<name>Y Offset</name>
+			<description>Y Displacement</description>
+			<type>float</type>
+			<initial>0.00</initial>
+			<uniform>p2</uniform>
+	</param>
+	<param>
+			<name>Shadow Opacity</name>
+			<description>Shadow Opacity Factor</description>
+			<type>float</type>
+			<initial>1.00</initial>
+			<uniform>p3</uniform>
+	</param>
+	<param>
+			<name>Red</name>
+			<description>Shadow Red Component</description>
+			<type>float</type>
+			<initial>1</initial>
+			<uniform>rr</uniform>
+		</param>
+		
+		<param>
+			<name>Green</name>
+			<description>Shadow Green Component</description>
+			<type>float</type>
+			<initial>0</initial>
+			<uniform>gg</uniform>
+		</param>
+		
+		<param>
+			<name>Blue</name>
+			<description>Shadow Blue Component</description>
+			<type>float</type>
+			<initial>1</initial>
+			<uniform>bb</uniform>
+		</param>
+ 
+ 	</parameters>
+	
+</c2effect>

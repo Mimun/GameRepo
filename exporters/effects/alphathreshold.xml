@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<c2effect>
+	<!-- About -->
+	<id>prralphathreshold</id>			<!-- Never change the ID.  Change the name instead -->
+	<name>Alpha Threshold</name>
+	<category>Color</category>
+	<description>Alpha values below the threshold are converted to transparent and above to opaque with a smoothness control.</description>
+	<author>Paulo Ricardo Reinehr</author>
+	
+	<!-- Settings -->
+	
+	<!-- Extend the bounding box for effect processing by a number of pixels to show the edges
+		 of effects which go beyond the object edges, e.g. blur and warp. -->
+	<extend-box-horizontal>0</extend-box-horizontal>
+	<extend-box-vertical>0</extend-box-vertical>
+	
+	<!-- Set to true if the background is sampled (samplerBack is referenced at all in the shader) -->
+	<blends-background>false</blends-background>
+	
+	<!-- Set to true if the background is not sampled at 1:1 with the foreground (e.g. the
+		 background texture co-ordinates are modified in some way by the shader, as done
+		 by Glass and Lens) -->
+	<cross-sampling>false</cross-sampling>
+	
+	<!-- Set to true if the effect changes over time, e.g. Noise or Warp effects. -->
+	<animated>false</animated>
+	
+	<!-- Parameters -->
+	<parameters>
+		<param>
+			<name>Threshold</name>
+			<description>Alpha threshold from 0 to 100. Controls where to put the edge based on the opacity value.</description>
+			<type>percent</type>
+			<initial>0.5</initial>
+			<uniform>threshold</uniform>
+		</param>
+		<param>
+			<name>Smoothness</name>
+			<description>Controls the smoothness of the edge.</description>
+			<type>percent</type>
+			<initial>0.25</initial>
+			<uniform>smoothness</uniform>
+		</param>
+		<param>
+			<name>Flat Colors</name>
+			<description>Set to 1 to unpremultiply the colors and make them flat. 0 preserves the black shading caused by premultiply.</description>
+			<type>float</type>
+			<initial>1</initial>
+			<uniform>unpremultiply</uniform>
+		</param>
+	</parameters>
+</c2effect>

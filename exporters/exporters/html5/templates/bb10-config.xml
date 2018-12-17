@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<widget xmlns="http://www.w3.org/ns/widgets"
+          xmlns:rim="http://www.blackberry.com/ns/widgets"
+          version="{{{version}}}"
+          id="{{{id}}}">
+ 
+     <name>{{{name}}}</name>
+     <author href="{{{website}}}" email="{{{email}}}">{{{author}}}</author>
+	 <description>{{{desc}}}</description>
+     <content src="index.html" />
+     <icon src="icon-114.png" />
+	 
+	 <feature id="blackberry.app">
+		<param name="orientation" value="{{{orientation}}}" />
+	</feature>
+	
+	<!-- Uncomment to enable a splash image while loading -->
+	<!-- <rim:splash src="splash.png" /> -->
+	
+	<!-- Uncomment any permissions your app needs -->
+	<rim:permissions>
+		<!-- <rim:permit>use_camera</rim:permit> -->
+		<!-- <rim:permit>read_geolocation</rim:permit> -->
+		<!-- <rim:permit>record_audio</rim:permit> -->
+		<!-- <rim:permit>bbm_connect</rim:permit> -->
+		<!-- <rim:permit>access_sms_mms</rim:permit> -->
+	</rim:permissions>
+	
+	<!-- Uncomment to enable accessing BBM -->
+	<!-- <feature id="blackberry.bbm.platform" /> -->
+
+	<!-- If you use any external URLs at all, e.g. for AJAX requests, you must whitelist them. -->
+	<!-- e.g. to be able to access any resource on example.com, add: -->
+	<!-- <access uri="http://example.com" subdomains=”true” /> -->
+</widget>

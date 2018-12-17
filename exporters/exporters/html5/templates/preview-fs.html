@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<!-- NOTE: DO NOT UPLOAD PREVIEW FILES TO YOUR SERVER! Use the 'Export' option which
+     generates HTML suitable for the internet.  This HTML is not suitable for upload. -->
+<html>
+<head>
+	<title>{title}</title>
+    <meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="HandheldFriendly" content="true" />
+	
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		html, body {
+			background: #000;
+			color: #fff;
+			overflow: hidden;
+		}
+		canvas {
+			touch-action-delay: none;
+			touch-action: none;
+			-ms-touch-action: none;
+		}
+		#inspect-outline {
+			position: absolute;
+			border: 2px dotted red;
+			overflow: hidden;
+			font-size: 8pt;
+			font-family: Sans serif;
+			color: #444;
+			pointer-events: none;
+			-webkit-animation: flash 2s linear 0s infinite;
+			-moz-animation: flash 2s linear 0s infinite;
+			-o-animation: flash 2s linear 0s infinite;
+			animation: flash 2s linear 0s infinite;
+			background-image: url(debugger-inspect.png);
+		}
+		
+		@-webkit-keyframes flash {
+			0%, 75%, 100% {opacity: 1;}
+			87% {opacity: 0.25;}
+		}
+
+		@-moz-keyframes flash {
+			0%, 75%, 100% {opacity: 1;}
+			87% {opacity: 0.25;}
+		}
+
+		@-o-keyframes flash {
+			0%, 75%, 100% {opacity: 1;}
+			87% {opacity: 0.25;}
+		}
+
+		@keyframes flash {
+			0%, 75%, 100% {opacity: 1;}
+			87% {opacity: 0.25;}
+		}
+    </style>
+{cssdependencies}
+
+	<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+{dependencies}
+	<script type="text/javascript" src="common_prelude.js"></script>
+	<script type="text/javascript" src="preview_prelude.js"></script>
+	<script type="text/javascript" src="shaders.js"></script>
+	<script type="text/javascript" src="glwrap.js"></script>
+{plugin-scripts}
+	<script type="text/javascript" src="objrefs.js"></script>
+	<script type="text/javascript" src="preview.js"></script>
+	<script type="text/javascript" src="layout.js"></script>
+	<script type="text/javascript" src="eveng.js"></script>
+	<script type="text/javascript" src="expressions.js"></script>
+	<script type="text/javascript" src="system.js"></script>
+	<script type="text/javascript" src="commonace.js"></script>
+
+    <script type="text/javascript">
+	
+    // Start the project running on window load
+    jQuery(document).ready(function ()
+    {		
+        // Create new runtime using the c2canvas
+		cr.createRuntime("c2canvas");
+    });
+	
+	// Pause and resume on page becoming visible/invisible
+	function onVisibilityChanged() {
+		if (document.hidden || document.mozHidden || document.webkitHidden || document.msHidden)
+			cr_setSuspended(true);
+		else
+			cr_setSuspended(false);
+	};
+	
+	document.addEventListener("visibilitychange", onVisibilityChanged, false);
+	document.addEventListener("mozvisibilitychange", onVisibilityChanged, false);
+	document.addEventListener("webkitvisibilitychange", onVisibilityChanged, false);
+	document.addEventListener("msvisibilitychange", onVisibilityChanged, false);
+	
+    </script>
+</head> 
+ 
+<body> 
+	<div id="fb-root"></div>
+	
+	<!-- The canvas must be inside a div called c2canvasdiv -->
+	<div id="c2canvasdiv">
+		<canvas id="c2canvas" width="{width}" height="{height}">
+		
+			<div id="canvasNotSupportedBox">
+				<h1>This browser does not appear to support HTML5.  Try upgrading your browser to the latest version.  <a href="http://www.whatbrowser.org">What is a browser?</a>
+				<br/><br/><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx">Microsoft Internet Explorer</a><br/>
+				<a href="http://www.mozilla.com/firefox/">Mozilla Firefox</a><br/>
+				<a href="http://www.google.com/chrome/">Google Chrome</a><br/>
+				<a href="http://www.apple.com/safari/download/">Apple Safari</a>
+				</h1>
+			</div>
+		</canvas>
+	</div>
+</body> 
+</html> 

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	
+	<title>{title}</title>
+	
+	<link href="debugger.css" rel="stylesheet" type="text/css" />
+</head> 
+ 
+<body>
+	<script src="jquery-2.1.1.min.js"></script>
+
+	<script src="debugger.js"></script>
+	
+	<div id="side" class="noselect">
+		<div id="topbar" class="noselect">
+			<span id="gripper">
+				<span id="topbarhandle" title="Drag to resize this pane">≡≡≡≡</span> <strong>Inspector</strong> - <span id="gamestatus">Loading</span>
+			</span>
+			<span id="controls">
+				<a id="pauseresume" class="barbutton">Pause</a> 
+				<a id="step" class="disabled barbutton">Step</a> 
+				<a id="save" class="barbutton" title="Save the current state">Save</a> 
+				<a id="load" class="barbutton" title="Load the previously saved state">Load</a> 
+				<a id="restart" class="barbutton">Restart</a>
+				<a id="popoutdebugger" class="barbutton" title="Click to toggle debugger in own window">⇗</a>
+			</span>
+			<br/>
+			<span id="perfstats">...</span>
+			<span id="tabs">
+				<a id="inspect-tab" class="tab">Inspect</a>
+				<a id="watch-tab" class="tab inactive">Watch</a>
+				<a id="profile-tab" class="tab inactive">Profile</a>
+			</span>
+		</div>
+		<div id="leftpane" class="noselect">
+			<ul id="objectlist" class="noselect">
+			</ul>
+		</div>
+		<div id="rightpane" class="noselect">
+			<p id="status">Loading...</p>
+			<div id="inspectview" class="noselect propertycontainer"></div>
+		</div>
+		<div id="perfpane" class="noselect">
+			<p id="perfnote">Note this section only measures CPU time. All values are estimates, and 'Draw calls' will be an underestimate where the browser uses multithreaded rendering. GPU rendering times are not shown, and the framerate may be limited by GPU performance.</p>
+			<div id="perftablewrap"></div>
+		</div>
+		<div id="watchpane" class="noselect">
+			<div id="watchview" class="noselect propertycontainer"></div>
+		</div>
+	</div>
+	<div id="main">
+		<div id="iframewrap">
+			<iframe allowfullscreen="true" id="theiframe" scrolling="no" noresize="noresize"></iframe>
+		</div>
+	</div>
+</body> 
+</html> 
